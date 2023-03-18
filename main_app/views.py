@@ -1,12 +1,19 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from .models import Report
 
 # Create your views here.
 
 def home(request):
   # Include an .html file extension - unlike when rendering EJS templates
   return render(request, 'home.html')
+
+def reports_index(request):
+  reports = Report.objects.all()
+  return render(request, 'reports/index.html', {
+    'reports': reports
+  })
 
 def signup(request):
   error_message = ''
