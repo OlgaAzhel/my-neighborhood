@@ -12,14 +12,13 @@
         <p>Description: {{ report.description|linebreaks }}</p>
         <p>Location: {{ report.location }}</p>
         <p>Agency: {{ report.get_agency_display }}</p>
-        
       </div>
       {% if user.id == report.user.id %}
       <div class="card-action">
         <a href="{% url 'report_update' report.id %}">Edit</a>
         <a href="{% url 'reports_delete' report.id %}">Delete</a>
+      </div>
       {% endif %}
-
     </div>
   </div>
   {% for photo in report.photo_set.all %}
@@ -49,17 +48,51 @@
     </thead>
     <tbody>
       {% for comment in report.comment_set.all %}
+    <form action="{% url 'add_comment' report.id %}" method="POST">
+      {% csrf_token %}
+      <!-- Render the inputs -->
+      {{ comment_form.as_p }}
+      <input type="submit" class="btn" value="Add Comment">
+    </form>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for comment in report.comment_set.all %}
         <tr>
           <td>{{comment.content}}</td>
         </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="col s6">
+    <div class="card">
+      <div style="visibility: collapse;" id="id_coordX">{{ report.coordX}}</div>
+      <div style="visibility: collapse;" id="id_coordY">{{ report.coordY}}</div>
+      <div class="detailsmap" id="mapid"></div>
+      <br>
+    </div>
+  </div>
 </div>
-
-
-
-  
-
+<div class="row">
+  <div class="col s6">
+    
+  </div>
+</div>
+<script>
+  coordX = document.querySelector('#id_coordX').innerHTML
+  coordY = document.querySelector('#id_coordY').innerHTML
+  console.log(coordX, coordY)
+  let detailsmap = L.map('mapid').setView([coordX, coordY], 14)
+  marker = L.marker([coordX, coordY]).addTo(detailsmap)
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(detailsmap);
+</script>
 
 {% endblock %}
