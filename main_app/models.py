@@ -37,7 +37,7 @@ class Report(models.Model):
 
 class Comment(models.Model):
     date = models.DateField('Date', default = '2023-03-21')
-    content = models.TextField(max_length=250)
+    content = models.TextField('Leave a Comment', max_length=250)
     report = models.ForeignKey(Report, on_delete=models.CASCADE)
 
     def __str__(self):
