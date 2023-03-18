@@ -13,9 +13,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 import environ
-import django_on_heroku
-
-django_on_heroku.settings(locals(), databases=False)
 
 environ.Env()
 environ.Env.read_env()
@@ -137,3 +134,7 @@ LOGOUT_REDIRECT_URL = '/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import django_on_heroku
+
+django_on_heroku.settings(locals(), databases=False)
