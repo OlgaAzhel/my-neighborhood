@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>All Reports</h1>
+
+{% for report in reports %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ report.title }}</span>
+        <p>Date Filed: {{ report.date }}</p>
+        <p>Description: {{ report.description|linebreaks }}</p>
+        <p>Location: {{ report.location }}</p>
+        <p>Agency: {{ report.agency }}</p>
+      </div>
+    </div>
+{% endfor %}
+
+
+{% endblock %}

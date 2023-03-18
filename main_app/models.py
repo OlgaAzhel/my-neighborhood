@@ -22,8 +22,8 @@ class Report(models.Model):
     coordY = models.FloatField(default=0, null=True, blank=True)
     agency = models.CharField(
         max_length=1,
-        choices= AGENCIES,
-        default= [0][0]
+            choices=AGENCIES,
+            default=AGENCIES[0][0]
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
