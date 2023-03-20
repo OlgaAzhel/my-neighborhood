@@ -10,7 +10,7 @@
         <p>Date Filed: {{ report.date }}</p>
         <p>Description: {{ report.description|linebreaks }}</p>
         <p>Location: {{ report.location }}</p>
-        <p>Agency: {{ report.agency }}</p>
+        <p>Agency: {{ report.get_agency_display }}</p>
       </div>
     </div>
 {% endfor %}
