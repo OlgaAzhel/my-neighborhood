@@ -28,4 +28,4 @@ class Report(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.title} ({self.id})'
+        return f"{self.get_report_display()} on {self.date}"
