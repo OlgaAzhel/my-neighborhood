@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from .models import Report
 
 # Create your views here.
 
@@ -27,3 +29,11 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
+
+class ReportCreate(CreateView):
+  model = Report
+  fields = ['title', 'date', 'description', 'agency']
+
+  def form_valid(self, form):
+    form.instance.user = self.request.user 
+    return super().form_valid(form)
