@@ -32,7 +32,7 @@ def signup(request):
 
 class ReportCreate(CreateView):
   model = Report
-  fields = ['title', 'date', 'description', 'agency']
+  fields = ['title', 'date', 'description', 'location', 'coordX', 'coordY', 'agency']
 
   def form_valid(self, form):
     form.instance.user = self.request.user 
