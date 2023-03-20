@@ -10,6 +10,12 @@ def home(request):
   # Include an .html file extension - unlike when rendering EJS templates
   return render(request, 'home.html')
 
+def reports_index(request):
+  reports = Report.objects.all()
+  return render(request, 'reports/index.html', {
+    'reports': reports
+  })
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':
