@@ -10,6 +10,7 @@ urlpatterns = [
     path('reports/<int:report_id>/', views.reports_detail, name='detail'),
     path('reports/<int:report_id>/add_comment/', views.add_comment, name='add_comment'),
 
+    path('reportsApi/', views.reportsApi, name='reportsApi'),
     path('reports/<int:pk>/update/', views.ReportUpdate.as_view(), name='report_update'),
 ]   
 
