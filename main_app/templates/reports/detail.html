@@ -14,6 +14,12 @@
         <p>Agency: {{ report.get_agency_display }}</p>
         
       </div>
+      {% if user.id == report.user.id %}
+      <div class="card-action">
+        <a href="{% url 'report_update' report.id %}">Edit</a>
+        <a href="{% url 'reports_delete' report.id %}">Delete</a>
+      {% endif %}
+
     </div>
   </div>
 </div>
@@ -39,15 +45,7 @@
   </table>
 </div>
 
-<script>
-  const dateEl = document.getElementById('id_date');
-  M.Datepicker.init(dateEl, {
-      format: 'yyyy-mm-dd',
-      defaultDate: new Date(),
-      setDefaultDate: true,
-      autoClose: true
-  });
-</script>
+
 
   
 

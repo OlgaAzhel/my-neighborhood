@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from datetime import date
 
 
 AGENCIES = (
@@ -35,7 +36,8 @@ class Report(models.Model):
         return reverse('index')
 
 class Comment(models.Model):
-    date = models.DateField()
+    date = models.TextField('Date Filed')
+
     content = models.TextField(max_length=250)
 
     report = models.ForeignKey(Report, on_delete=models.CASCADE)
