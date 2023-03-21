@@ -53,6 +53,11 @@ class ReportCreate(LoginRequiredMixin, CreateView):
     return super().form_valid(form)
 
 
+class ReportDelete(DeleteView):
+  model = Report
+  success_url = '/reports'
+
+
 class ReportUpdate(LoginRequiredMixin, UpdateView):
   model = Report
   fields = ['title', 'date', 'description', 'location', 'coordX', 'coordY', 'agency']
