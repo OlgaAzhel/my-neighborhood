@@ -14,7 +14,12 @@
         <p>Agency: {{ report.get_agency_display }}</p>
         
       </div>
-      <a href="{% url 'reports_delete' report.id %}">Delete</a>
+      {% if user.id == report.user.id %}
+      <div class="card-action">
+        <a href="{% url 'report_update' report.id %}">Edit</a>
+        <a href="{% url 'reports_delete' report.id %}">Delete</a>
+      {% endif %}
+
     </div>
   </div>
 </div>
