@@ -4,6 +4,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Report
+from .serializers import ReportSerializer
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 # Create your views here.
 
@@ -51,3 +54,10 @@ class ReportCreate(CreateView):
   def form_valid(self, form):
     form.instance.user = self.request.user 
     return super().form_valid(form)
+
+
+@api_view(['GET'])
+def reportsApi(request):
+  reports = Report.objects.all()
+  data = ReportSerializer(reports, many=True).data
+  return Response(data)
