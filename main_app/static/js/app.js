@@ -51,12 +51,13 @@ function selectOnMap(latlng) {
     mymap.flyTo([latlng.lat, latlng.lng], 16)
     marker.closePopup()
     marker.setLatLng([latlng.lat, latlng.lng])
+    address.value = "Map location marker"
 }
 
 
 
 
-let mymap = L.map('mapid').setView([28.0683496, -80.5603303], 12)
+let mymap = L.map('mapid').setView([28.0683496, -80.5603303],14)
 let marker = L.marker([28.0683496, -80.5603303]).addTo(mymap)
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {

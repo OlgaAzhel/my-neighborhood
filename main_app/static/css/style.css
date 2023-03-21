@@ -19,8 +19,19 @@
     top: 200px;
     margin: auto;
     margin-top: 5px;
-    width: 600px;
-    min-height: 400px;
+    width: 800px;
+    min-height: 600px;
 
 }
 
+.adreportmap {
+    margin: auto;
+    margin-top: 5px;
+    width: 90%;
+    min-height: 400px;
+}
+
+h6 {
+    padding-top: 20px;
+    text-align: center;
+}
