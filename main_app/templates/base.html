@@ -1,16 +1,22 @@
-
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Neighborhood</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 </head>
+
 <body>
     <header class="navbar-fixed">
         <nav>
@@ -19,16 +25,16 @@
                     <li><a href="{% url 'home' %}" class="left brand-logo">&nbsp;&nbsp;My Neighborhood</a></li>
 
                 </ul>
-                    <ul class="right">
-                        <li><a href="{% url 'index' %}">View All Reports</a></li>
-                        {% if user.is_authenticated %}
-                        <li><a href="{% url 'report_create' %}">Add a Report</a></li>
-                        <li><a href="{% url 'logout' %}">Log Out</a></li>
-                        {% else %}
-                        <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                        <li><a href="{% url 'login' %}">Log In</a></li>
-                        {% endif %}
-                    </ul>
+                <ul class="right">
+                    <li><a href="{% url 'index' %}">View All Reports</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'report_create' %}">Add a Report</a></li>
+                    <li><a href="{% url 'logout' %}">Log Out</a></li>
+                    {% else %}
+                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                    <li><a href="{% url 'login' %}">Log In</a></li>
+                    {% endif %}
+                </ul>
 
             </div>
         </nav>
@@ -37,8 +43,10 @@
         {% block content %}
         {% endblock %}
     </main>
-  	<footer class="page-footer">
-       <div class="right">All Rights Reserved, &copy; 2023 My Neighborhood &nbsp;</div>
+    <footer class="page-footer">
+        <div class="right">All Rights Reserved, &copy; 2023 My Neighborhood &nbsp;</div>
     </footer>
+    <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
 </body>
+
 </html>

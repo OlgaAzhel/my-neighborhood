@@ -6,6 +6,9 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Report
+from .serializers import ReportSerializer
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 # Create your views here.
 
@@ -52,6 +55,12 @@ class ReportCreate(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user 
     return super().form_valid(form)
 
+
+@api_view(['GET'])
+def reportsApi(request):
+  reports = Report.objects.all()
+  data = ReportSerializer(reports, many=True).data
+  return Response(data)
 
 class ReportDelete(DeleteView):
   model = Report
