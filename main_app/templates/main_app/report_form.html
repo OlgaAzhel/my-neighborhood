@@ -8,27 +8,72 @@
 <h1>Add Report</h1>
 {% endif %}
 
+<div class="row">
+    <div class="col s6">
+        <!-- Leaving the action empty makes the form post to the same url used to display it -->
+        <form action="" method="POST">
+            <!-- Django requires the following for security purposes -->
+            {% csrf_token %}
+            <table>
+                <div>
+                    <p>Title:</p>
+                    {{ form.title}}
+                </div>
+                <div>
+                    <p>Date Filed:</p>
+                    {{ form.date}}
+                </div>
+                <div>
+                    <p>Description:</p>
+                    {{ form.description}}
+                </div>
+                <div>
+                    <p>Address:</p>
+                    {{ form.location}}
+                </div>
+                <div style="height: 0; visibility: collapse;">
+                    {{ form.coordX}}
+                </div>
+                <div style="height: 0; visibility: collapse;">
+                    {{ form.coordY}}
+                </div>
+                <div>
+                    <p>Agency:</p>
+                    {{ form.agency}}
+                </div>
+            </table>
+            <br>
+            <input type="submit" value="Submit!" class="btn">
+        </form>
+        <br>
+    </div>
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <div>
+                    <input type="text" id="address" placeholder="find address">
+                </div>
+            </div>
+            <div class="card-action">
+                <button onclick="findAddresses()" class="btn">Find</button>
+            </div>
+            <div id="addresses"></div>
+            <div class="map" id="mapid"></div>
+        </div>
+    </div>
+</div>
 
-<!-- Leaving the action empty makes the form post to the same url used to display it -->
-<form action="" method="POST">
-    <!-- Django requires the following for security purposes -->
-    {% csrf_token %}
-    <table>
-        <!-- Render the inputs inside of <tr>s & <td>s -->
-        {{ form.as_table }}
-    </table>
-    <input type="submit" value="Submit!" class="btn">
-</form>
+
 <script>
-      const dateEl = document.getElementById('id_date');
-        M.Datepicker.init(dateEl, {
-            format: 'yyyy-mm-dd',
-            defaultDate: new Date(),
-            setDefaultDate: true,
-            autoClose: true
-        });
-      const selectEl = document.getElementById('id_agency');
-        M.FormSelect.init(selectEl);
+    const dateEl = document.getElementById('id_date');
+    M.Datepicker.init(dateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    });
+    const selectEl = document.getElementById('id_agency');
+    M.FormSelect.init(selectEl);
 </script>
 
 {% endblock %}

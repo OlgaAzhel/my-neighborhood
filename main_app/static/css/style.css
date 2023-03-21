@@ -1,0 +1,24 @@
+#addresses {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#addresses>a {
+    text-decoration: none;
+    color: rgb(82, 163, 154)
+}
+
+#addresses>a:hover {
+    color: white;
+    background-color: rgb(82, 163, 154);
+}
+
+.map {
+    position: relative;
+    margin: auto;
+    margin-top: 5px;
+    width: 90%;
+    min-height: 400px;
+
+}
