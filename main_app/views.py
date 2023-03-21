@@ -62,6 +62,11 @@ def reportsApi(request):
   data = ReportSerializer(reports, many=True).data
   return Response(data)
 
+class ReportDelete(DeleteView):
+  model = Report
+  success_url = '/reports'
+
+
 class ReportUpdate(LoginRequiredMixin, UpdateView):
   model = Report
   fields = ['title', 'date', 'description', 'location', 'coordX', 'coordY', 'agency']
