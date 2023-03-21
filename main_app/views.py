@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Report
-
+from .forms import CommentForm
 # Create your views here.
 
 def home(request):
@@ -20,10 +20,19 @@ def reports_index(request):
 
 def reports_detail(request, report_id):
   report = Report.objects.get(id=report_id)
+  comment_form = CommentForm()
   
   return render(request, 'reports/detail.html', {
-    'report': report, 
+    'report': report, 'comment_form': comment_form
   })
+
+def add_comment(request, report_id):
+  form = CommentForm(request.POST)
+  if form.is_valid():
+    new_comment = form.save(commit=False)
+    new_comment.report_id = report_id
+    new_comment.save()
+  return redirect('detail', report_id=report_id)
 
 def signup(request):
   error_message = ''

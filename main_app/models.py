@@ -34,5 +34,12 @@ class Report(models.Model):
     def get_absolute_url(self):
         return reverse('index')
 
+class Comment(models.Model):
+    date = models.DateField()
+    content = models.TextField(max_length=250)
 
-    
+    report = models.ForeignKey(Report, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.content} ({self.id})'
+

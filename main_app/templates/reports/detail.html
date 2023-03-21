@@ -18,18 +18,38 @@
   </div>
 </div>
 
-  
+<div class="col s6">
+  <form action="{% url 'add_comment' report.id %}" method="POST">
+    {% csrf_token %}
+    <!-- Render the inputs -->
+    {{ comment_form.as_p }}
+    <input type="submit" class="btn" value="Add Comment">
+  </form>
+  <table class="striped">
+    <thead>
+      <tr><th>Comment</th></tr>
+    </thead>
+    <tbody>
+      {% for comment in report.comment_set.all %}
+        <tr>
+          <td>{{comment.content}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 <script>
   const dateEl = document.getElementById('id_date');
   M.Datepicker.init(dateEl, {
-    format: 'yyyy-mm-dd',
-    defaultDate: new Date(),
-    setDefaultDate: true,
-    autoClose: true
+      format: 'yyyy-mm-dd',
+      defaultDate: new Date(),
+      setDefaultDate: true,
+      autoClose: true
   });
-
-  const selectEl = document.getElementById('id_meal');
-  M.FormSelect.init(selectEl);
 </script>
+
+  
+
+
 {% endblock %}
