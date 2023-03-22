@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Report, Photo
 from .forms import CommentForm
-from .serializers import ReportSerializer
+from .serializers import ReportSerializer, PhotoSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -100,3 +100,10 @@ class ReportDelete(DeleteView):
 class ReportUpdate(LoginRequiredMixin, UpdateView):
   model = Report
   fields = ['title', 'date', 'description', 'location', 'coordX', 'coordY', 'agency']
+
+
+@api_view(['GET'])
+def photosApi(request):
+  photos = Photo.objects.all()
+  photodata = PhotoSerializer(photos, many=True).data
+  return Response(photodata)
