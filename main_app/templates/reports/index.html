@@ -10,6 +10,9 @@
   <title>My Neighborhood</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
@@ -41,18 +44,27 @@
 <h1>All Reports</h1>
 <div class="row">
   <div class="col s4">
-    {% for report in reports %}
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">{{ report.title }}</span>
-        <p>Date Filed: {{ report.date }}</p>
+    <ul>
+      
+    </ul>
+      {% for report in reports %}
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title blue-text text-darken-4">{{ report.title }}</span>
+          <p>Date Filed: {{ report.date }}</p>
         <p><a href="{% url 'detail' report.id %}">Details</a></p>
       </div>
     </div>
+    {% endfor %}
+  </div>
+  <div class="col s8">
+    <div class="map" id="mapid"></div>
+  </div>
+</div>
 
     </main>
-    <footer class="page-footer indigo darken-4">
-      <div class="right">All Rights Reserved, &copy; 2023 My Neighborhood &nbsp;</div>
+    <footer class="page-footer indigo darken-4 white-text">
+      <div class="right white-text">All Rights Reserved, &copy; 2023 My Neighborhood &nbsp;</div>
     </footer>
       <script type="text/javascript" src="{% static 'js/reports.js' %}"></script>
     </body>

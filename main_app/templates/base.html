@@ -7,18 +7,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>My Neighborhood</title>
     <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Style+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
         integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-</head>
+    <title>My Neighborhood</title>
 
+
+</head>
 <body>
+
     <header>
         <nav class="navbar-fixed indigo darken-4">
             <div class="nav-wrapper">
@@ -41,13 +46,33 @@
     <main class="container">
         {% block content %}
 
-
         {% endblock %}
     </main>
-    <footer class="page-footer indigo darken-4">
-        <div class="right">All Rights Reserved, &copy; 2023 My Neighborhood &nbsp;</div>
+    <footer class="page-footer indigo darken-4 white-text">
+        <div class="right white-text">All Rights Reserved, &copy; 2023 My Neighborhood &nbsp;</div>
     </footer>
     <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+    crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+   <script>
+    
+        $(document).ready(function(){
+            $('.carousel').carousel({
+
+                fullWidth:true,
+                indicators:true
+                
+            }).height(700);
+            
+            setInterval(function(){
+                $('.carousel').carousel('next');
+            }, 2000);
+        });
+        
+    </script> 
 </body>
 
 </html>

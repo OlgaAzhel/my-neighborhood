@@ -15,8 +15,8 @@
       </div>
       {% if user.id == report.user.id %}
       <div class="card-action">
-        <a href="{% url 'report_update' report.id %}">Edit</a>
-        <a href="{% url 'reports_delete' report.id %}">Delete</a>
+        <a href="{% url 'report_update' report.id %}" class="blue-text text-darken-4">Edit</a>
+        <a href="{% url 'reports_delete' report.id %}" class="blue-text text-darken-4">Delete</a>
       </div>
       {% endif %}
     </div>
@@ -24,23 +24,26 @@
       {% csrf_token %}
       <!-- Render the inputs -->
       {{ comment_form.as_p }}
-      <input type="submit" class="btn" value="Add Comment">
+      <input type="submit" class="btn right" value="Add Comment">
     </form>
-    <table class="striped">
+    <table class="">
       <thead>
         <tr>
-          <th>Comment</th>
+          <th class="comments-header">Comments:</th>
         </tr>
       </thead>
       <tbody>
         {% for comment in report.comment_set.all %}
         <tr>
-          <td>{{comment.content}}</td>
+          <td class="comments-date">{{comment.date}}</td> 
+          <td class="comments-date">{{user}}:</td>
+          <td class="comments-comment">{{comment.content}}</td>
         </tr>
         {% endfor %}
-      </tbody>
+      </tbody> 
     </table>
   </div>
+  {% comment %} </div> {% endcomment %}
   <div class="col s6">
     <div class="card">
       <div style="visibility: collapse;" id="id_coordX">{{ report.coordX}}</div>
