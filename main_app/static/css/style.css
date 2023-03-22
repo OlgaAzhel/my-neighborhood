@@ -24,11 +24,17 @@
 
 }
 
-.adreportmap {
+.addreportmap {
     margin: auto;
     margin-top: 5px;
-    width: 90%;
     min-height: 400px;
+}
+
+.detailsmap {
+    margin: auto;
+    width: 90%;
+    height: 400px;
+    margin-bottom: 5px;
 }
 
 h6 {
