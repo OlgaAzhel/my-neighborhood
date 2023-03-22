@@ -18,7 +18,7 @@ STATUS_CHOICE = (
 )
 
 class Report(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, blank=False)
     date = models.DateField('Date Filed')
     description = models.TextField(max_length=250)
     location = models.CharField(
