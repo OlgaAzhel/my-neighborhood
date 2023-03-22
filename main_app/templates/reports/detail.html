@@ -3,61 +3,91 @@
 
 <h1>Report Details</h1>
 
-<div class="row">
-  <div class="col s6">
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title blue-text text-darken-4">{{ report.title }}</span>
-        <p>Date Filed: {{ report.date }}</p>
-        <p>Description: {{ report.description|linebreaks }}</p>
-        <p>Location: {{ report.location }}</p>
-        <p>Agency: {{ report.get_agency_display }}</p>
+  <div class="row">
+    <div class="col s6">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title blue-text text-darken-4">{{ report.title }}</span>
+            <p>Date Filed: {{ report.date }}</p>
+            <p>Description: {{ report.description|linebreaks }}</p>
+            <p>Location: {{ report.location }}</p>
+            <p>Agency: {{ report.get_agency_display }}</p>
+        </div>
+          {% if user.id == report.user.id %}
+            <div class="card-action">
+              <a href="{% url 'report_update' report.id %}" class="blue-text text-darken-4">Edit</a>
+              <a href="{% url 'reports_delete' report.id %}" class="blue-text text-darken-4">Delete</a>
+            </div>
+          {% endif %}
       </div>
-      {% if user.id == report.user.id %}
-      <div class="card-action">
-        <a href="{% url 'report_update' report.id %}" class="blue-text text-darken-4">Edit</a>
-        <a href="{% url 'reports_delete' report.id %}" class="blue-text text-darken-4">Delete</a>
-      </div>
-      {% endif %}
-    </div>
-    <form action="{% url 'add_comment' report.id %}" method="POST">
-      {% csrf_token %}
+      {% for photo in report.photo_set.all %}
+        <img class="responsive-img card-panel" src="{{photo.url}}">
+      {% empty %}
+          <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+      {% endfor %}
+    
+        <form action="{% url 'add_photo' report.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+            {% csrf_token %}
+            <input type="file" name="photo-file">
+            <br><br>
+            <button type="submit" class="btn">Upload Photo</button>
+        </form>
       <!-- Render the inputs -->
-      {{ comment_form.as_p }}
-      <input type="submit" class="btn right" value="Add Comment">
-    </form>
-    <table class="">
-      <thead>
-        <tr>
-          <th class="comments-header">Comments:</th>
-        </tr>
-      </thead>
-      <tbody>
+      </div>
+      {% comment %} map  {% endcomment %}
+        <div class="col s6">
+          <div class="card">
+            <div style="visibility: collapse;" id="id_coordX">{{ report.coordX}}</div>
+            <div style="visibility: collapse;" id="id_coordY">{{ report.coordY}}</div>
+            <div class="detailsmap" id="mapid"></div>
+            <br>
+          </div>
+        </div>
+    </div>
+</div>
+  {% comment %} comments  {% endcomment %}
+  {{ comment_form.as_p }}
+
+  <form action="{% url 'add_comment' report.id %}" method="POST">
+    <input type="submit" class="btn right" value="Add Comment">
+    {% csrf_token %}
+  </form>
+  <table class="">
+    <thead>
+      <tr>
+        <th class="comments-header">Comments:</th>
+    <!-- Render the inputs -->
+      </tr>
+    </thead>
+    <tbody>
         {% for comment in report.comment_set.all %}
-        <tr>
+      <tr>
           <td class="comments-date">{{comment.date}}</td> 
           <td class="comments-date">{{user}}:</td>
           <td class="comments-comment">{{comment.content}}</td>
-        </tr>
+      </tr>
         {% endfor %}
       </tbody> 
     </table>
   </div>
-  {% comment %} </div> {% endcomment %}
-  <div class="col s6">
+</div> 
+
+  {% comment %} <div class="col s6">
     <div class="card">
       <div style="visibility: collapse;" id="id_coordX">{{ report.coordX}}</div>
       <div style="visibility: collapse;" id="id_coordY">{{ report.coordY}}</div>
       <div class="detailsmap" id="mapid"></div>
       <br>
     </div>
-  </div>
-</div>
+  </div> {% endcomment %}
+
+{% comment %} </div>
 <div class="row">
   <div class="col s6">
     
   </div>
-</div>
+</div> {% endcomment %}
+
 <script>
   coordX = document.querySelector('#id_coordX').innerHTML
   coordY = document.querySelector('#id_coordY').innerHTML
