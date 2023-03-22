@@ -11,6 +11,8 @@ urlpatterns = [
     path('reports/<int:report_id>/add_comment/', views.add_comment, name='add_comment'),
     path('reports/<int:report_id>/add_photo/', views.add_photo, name='add_photo'),
     path('reportsApi/', views.reportsApi, name='reportsApi'),
+    path('photosApi/', views.photosApi, name='photosApi'),
     path('reports/<int:pk>/update/', views.ReportUpdate.as_view(), name='report_update'),
+    path('reports/<int:report_id>/change_status/', views.change_status, name='change_status'),
 ]   
 
