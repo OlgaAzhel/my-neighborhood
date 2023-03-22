@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+import datetime
 
 
 AGENCIES = (
@@ -34,5 +35,13 @@ class Report(models.Model):
     def get_absolute_url(self):
         return reverse('index')
 
+class Comment(models.Model):
+    date = models.DateField('Date', default = '2023-03-21')
 
-    
+    content = models.TextField(max_length=250)
+
+    report = models.ForeignKey(Report, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.content} ({self.id})'
+

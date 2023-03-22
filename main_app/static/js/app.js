@@ -16,6 +16,7 @@ function findAddresses() {
         .then(showAddress => showAddresses())
         .catch(err => console.log(err))
 }
+
 function showAddresses() {
     addresses.innerHTML = ''
     if (addressArr.length > 0) {
@@ -51,13 +52,22 @@ function selectOnMap(latlng) {
     mymap.flyTo([latlng.lat, latlng.lng], 16)
     marker.closePopup()
     marker.setLatLng([latlng.lat, latlng.lng])
-    address.value = "Map location marker"
+    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json`, {
+        headers: {
+            'User-Agent': 'ID of your APP/service/website/etc. v0.1'
+        }
+    }).then(res => res.json())
+        .then(res => {
+            console.log(res.display_name)
+            address.value = res.display_name
+        })
 }
 
 
 
 
 let mymap = L.map('mapid').setView([28.0683496, -80.5603303],14)
+
 let marker = L.marker([28.0683496, -80.5603303]).addTo(mymap)
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
