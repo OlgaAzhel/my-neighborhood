@@ -1,5 +1,4 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <h1>Report Details</h1>
 
@@ -14,24 +13,22 @@
         <p>Agency: {{ report.get_agency_display }}</p>
         <p>Status: {{ report.get_status_display }}</p>
       </div>
-       
+
       {% if user.is_staff %}
       <div class="card-action">
-        <form method="POST" action="{% url 'change_status' report.id %}"> 
-         {% csrf_token %}
-         {{ status_form.as_p}}
-         <input type="submit" value="Update Status">
+        <form method="POST" action="{% url 'change_status' report.id %}">
+          {% csrf_token %} {{ status_form.as_p}}
+          <input type="submit" value="Update Status" />
         </form>
-      </div> 
-      {% endif %}   
       </div>
-      {% if user.id == report.user.id %}
-      <div class="card-action">
-        <a href="{% url 'report_update' report.id %}">Edit</a>
-        <a href="{% url 'reports_delete' report.id %}">Delete</a>
       {% endif %}
-
     </div>
+    {% if user.id == report.user.id %}
+    <div class="card-action">
+      <a href="{% url 'report_update' report.id %}">Edit</a>
+      <a href="{% url 'reports_delete' report.id %}">Delete</a>
+    </div>
+    {% endif %}
   </div>
 </div>
 
@@ -40,28 +37,27 @@
     {% csrf_token %}
     <!-- Render the inputs -->
     {{ comment_form.as_p }}
-    <input type="submit" class="btn" value="Add Comment">
+    <input type="submit" class="btn" value="Add Comment" />
   </form>
   <table class="striped">
     <thead>
-      <tr><th>Comment</th></tr>
+      <tr>
+        <th>Comment</th>
+      </tr>
     </thead>
     <tbody>
       {% for comment in report.comment_set.all %}
-        <tr>
-          <td>{{comment.content}}</td>
-        </tr>
+      <tr>
+        <td>{{comment.content}}</td>
+      </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
 
 <script>
-  const selectEl = document.getElementById('id_status');
+  const selectEl = document.getElementById("id_status");
   M.FormSelect.init(selectEl);
 </script>
-
-  
-
 
 {% endblock %}
