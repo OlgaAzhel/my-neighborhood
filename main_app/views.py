@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Report, Photo
-from .forms import CommentForm
+from .forms import CommentForm, ReportStatus
 from .serializers import ReportSerializer, PhotoSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -26,13 +26,27 @@ def reports_index(request):
     'reports': reports
   })
 
+def change_status(request, report_id):
+  report = Report.objects.get(id=report_id)
+  status_form = ReportStatus(request.POST, instance=report)
+  if status_form.is_valid():
+    #  new_status = status_form.save(commit=False)
+    #  print('THIS IS THE NEW STATUS', new_status)
+    #  print('THIS IS THE NEW STATUS', status_form)
+    #  new_status.date = report.date
+    #  new_status.user_id = report.user_id
+     status_form.save()
+
+  return redirect('detail', report_id = report_id)
+
 
 def reports_detail(request, report_id):
   report = Report.objects.get(id=report_id)
   comment_form = CommentForm()
+  status_form = ReportStatus()
   
   return render(request, 'reports/detail.html', {
-    'report': report, 'comment_form': comment_form
+    'report': report, 'comment_form': comment_form, 'status_form': status_form
   })
   
 

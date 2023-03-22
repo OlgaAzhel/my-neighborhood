@@ -1,5 +1,4 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <h1>Report Details</h1>
 
@@ -12,6 +11,18 @@
         <p>Description: {{ report.description|linebreaks }}</p>
         <p>Location: {{ report.location }}</p>
         <p>Agency: {{ report.get_agency_display }}</p>
+        <p>Status: {{ report.get_status_display }}</p>
+      </div>
+
+      {% if user.is_staff %}
+      <div class="card-action">
+        <form method="POST" action="{% url 'change_status' report.id %}">
+          {% csrf_token %} {{ status_form.as_p}}
+          <input type="submit" value="Update Status" />
+        </form>
+      </div>
+      {% endif %}
+    
       </div>
 
       {% if user.id == report.user.id %}
@@ -50,7 +61,7 @@
     {% csrf_token %}
     <!-- Render the inputs -->
     {{ comment_form.as_p }}
-    <input type="submit" class="btn" value="Add Comment">
+    <input type="submit" class="btn" value="Add Comment" />
   </form>
   {% endif %}
     <table class="striped">
@@ -85,6 +96,8 @@
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(detailsmap);
+  const selectEl = document.getElementById('id_status');
+  M.FormSelect.init(selectEl);
 </script>
 
 {% endblock %}
