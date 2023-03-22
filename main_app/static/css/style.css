@@ -1,3 +1,29 @@
+* {
+    font-family: 'Montserrat','Roboto, Oxygen, Ubuntu, Cantarell', 'Open Sans', 'Helvetica Neue', sans-serif;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+    
+}
+
+body {
+    display: block;
+    margin: 10px;
+} 
+h1 {
+    font-weight: 400;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+h2 {
+    font-weight: 400;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Style Script', cursive;
+
+}
+
 #addresses {
     display: flex;
     flex-direction: column;
@@ -15,7 +41,8 @@
 }
 
 .map {
-    position: fixed;
+    display: flex;
+    position: relative;
     top: 200px;
     margin: auto;
     margin-top: 5px;
@@ -40,4 +67,37 @@
 h6 {
     padding-top: 20px;
     text-align: center;
+}
+
+a, li {
+    color: #1C2579;
+    font-weight:bolder;
+}
+.btn {
+    background-color:  #1C2579;
+}
+span {
+    font-weight: bolder;
+}
+
+
+/* .home-page-img { */
+    /* background-image: url("https://davidbalyeat.com/wp-content/uploads/miami-skyline-sunset-panoramic-high-definition-hd-professional-photography.jpg"); */
+    /* background-size: cover;
+    background-position: center;
+    min-height: 600px;
+    margin: 5px; */
+    /* } */
+    
+.card-title {
+    font-weight: 500;
+}
+
+.comments-header {
+    text-decoration: underline;
+}
+
+.carousel {
+    height:700px !important;
+    min-height: 600px;
 }
