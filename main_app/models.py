@@ -13,6 +13,10 @@ AGENCIES = (
     ('U', 'Utilities'),
     ('O', 'Other'),
 )
+STATUS_CHOICE = (
+    ('P', 'Pending'),
+    ('S', 'Solved'),
+)
 
 class Report(models.Model):
     title = models.CharField(max_length=100)
@@ -25,8 +29,17 @@ class Report(models.Model):
     agency = models.CharField(
         max_length=1,
             choices=AGENCIES,
-            default=AGENCIES[0][0]
-    )
+            default=AGENCIES[0][0])
+    status = models.CharField(
+        max_length=1, 
+            choices=STATUS_CHOICE,
+            default=STATUS_CHOICE[0][0]
+            
+        )
+ 
+
+    
+    
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

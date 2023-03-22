@@ -12,7 +12,18 @@
         <p>Description: {{ report.description|linebreaks }}</p>
         <p>Location: {{ report.location }}</p>
         <p>Agency: {{ report.get_agency_display }}</p>
-        
+        <p>Status: {{ report.get_status_display }}</p>
+      </div>
+       
+      {% if user.is_staff %}
+      <div class="card-action">
+        <form method="POST" action="{% url 'change_status' report.id %}"> 
+         {% csrf_token %}
+         {{ status_form.as_p}}
+         <input type="submit" value="Update Status">
+        </form>
+      </div> 
+      {% endif %}   
       </div>
       {% if user.id == report.user.id %}
       <div class="card-action">
@@ -45,7 +56,10 @@
   </table>
 </div>
 
-
+<script>
+  const selectEl = document.getElementById('id_status');
+  M.FormSelect.init(selectEl);
+</script>
 
   
 

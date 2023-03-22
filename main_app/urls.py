@@ -12,5 +12,6 @@ urlpatterns = [
 
     path('reportsApi/', views.reportsApi, name='reportsApi'),
     path('reports/<int:pk>/update/', views.ReportUpdate.as_view(), name='report_update'),
+    path('reports/<int:report_id>/change_status/', views.change_status, name='change_status'),
 ]   
 
