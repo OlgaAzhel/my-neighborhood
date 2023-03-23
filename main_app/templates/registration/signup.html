@@ -3,12 +3,15 @@
 
 <h1>Sign Up</h1>
 
-<p class="red-text">{{ error_message }}</p>
+<section class="container" id="signup-form">
 
-<form method="POST" action="{% url 'signup' %}">
+  <p class="red-text">{{ error_message }}</p>
+  
+  <form method="POST" action="{% url 'signup' %}">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn waves-effect waves-light">Sign Up</button>
   </form>
+</section>
   
 {% endblock %}
