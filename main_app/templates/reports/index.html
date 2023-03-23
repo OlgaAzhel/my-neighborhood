@@ -26,9 +26,10 @@
     <nav class="navbar-fixed indigo darken-4">
       <div class="nav-wrapper">
         <ul>
-          <li><a href="{% url 'home' %}" class="left brand-logo">&nbsp;&nbsp;My Neighborhood</a></li>
+          <li><a href="#" class="left brand-logo">&nbsp;&nbsp;My Neighborhood</a></li>
         </ul>
         <ul class="right">
+          <li><a href="{% url 'home' %}">Home</a></li>
           <li><a href="{% url 'index' %}">View All Reports</a></li>
           {% if user.is_authenticated %}
           <li><a href="{% url 'report_create' %}">Add a Report</a></li>
@@ -66,6 +67,12 @@
         <div class="map" id="mapid"></div>
       </div>
     </div>
+    {% endfor %}
+  </div>
+  <div class="col s8">
+    <div class="map" id="mapid"></div>
+  </div>
+</div>
 
   </main>
   <footer class="page-footer indigo darken-4 white-text">

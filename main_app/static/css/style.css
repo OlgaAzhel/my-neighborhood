@@ -7,7 +7,7 @@
 
 body {
     display: block;
-    margin: 10px;
+    /* margin: 10px; */
 } 
 h1 {
     font-weight: 400;
@@ -20,7 +20,7 @@ h2 {
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-family: 'Style Script', cursive;
+    /* font-family: 'Style Script', cursive; */
 
 }
 
@@ -86,6 +86,13 @@ span {
 
 #report-list::-webkit-scrollbar {
     display: none;
+.footer-span {
+    justify-content: right;
+}
+footer {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
 }
 
 /* .home-page-img { */
