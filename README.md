@@ -33,6 +33,8 @@ The web application is currently deployed on Heroku and can be accessed here: ht
 
 Link to Trello board for project organization and task management: https://trello.com/b/RxNhLoVe/project-3
 
+Link to planning presentation pitch deck: https://docs.google.com/presentation/d/18O0Pg3U1A39BEnXHno7cqYlRD4ldMRg_kxXs_i8fQrM/edit#slide=id.p
+
 ## Future Features
 
 * Optimize the application with a responsive design for mobile, tablet, and smaller screen devices.
