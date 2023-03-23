@@ -37,9 +37,6 @@ class Report(models.Model):
             
         )
  
-
-    
-    
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -47,6 +44,9 @@ class Report(models.Model):
     
     def get_absolute_url(self):
         return reverse('index')
+    
+    class Meta:
+        ordering = ['-date']
 
 
 class Comment(models.Model):
