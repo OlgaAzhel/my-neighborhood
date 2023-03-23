@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from datetime import date
 
 
 AGENCIES = (
@@ -49,7 +50,8 @@ class Report(models.Model):
 
 
 class Comment(models.Model):
-    date = models.DateField('Date', default = '2023-03-21')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField('Date', default=date.today)
     content = models.TextField('Leave a Comment', max_length=250)
     report = models.ForeignKey(Report, on_delete=models.CASCADE)
 

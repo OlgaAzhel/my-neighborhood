@@ -56,6 +56,7 @@ def add_comment(request, report_id):
   if form.is_valid():
     new_comment = form.save(commit=False)
     new_comment.report_id = report_id
+    new_comment.user = request.user
     new_comment.save()
   return redirect('detail', report_id=report_id)
 
