@@ -45,6 +45,7 @@ def reports_detail(request, report_id):
   comment_form = CommentForm()
   status_form = ReportStatus()
   
+  
   return render(request, 'reports/detail.html', {
     'report': report, 'comment_form': comment_form, 'status_form': status_form
   })

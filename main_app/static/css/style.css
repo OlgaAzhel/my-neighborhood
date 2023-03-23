@@ -41,7 +41,6 @@ h2 {
 }
 
 .map {
-    position: fixed;
     margin: auto;
     margin-top: 15px;
     width: 800px;
@@ -78,6 +77,16 @@ span {
     font-weight: bolder;
 }
 
+#report-list {
+    height: 600px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#report-list::-webkit-scrollbar {
+    display: none;
+}
 
 /* .home-page-img { */
     /* background-image: url("https://davidbalyeat.com/wp-content/uploads/miami-skyline-sunset-panoramic-high-definition-hd-professional-photography.jpg"); */
