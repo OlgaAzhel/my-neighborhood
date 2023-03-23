@@ -22,14 +22,18 @@
                         {{ form.title}}
                     </div>
                     <div>
+                        <br>
                         <p>Date Filed:</p>
                         {{ form.date}}
                     </div>
                     <div>
+                        <br>
                         <p>Description:</p>
+                        <br>
                         {{ form.description}}
                     </div>
                     <div>
+                        <br>
                         <p>Address:</p>
                         {{ form.location}}
                     </div>
@@ -40,6 +44,7 @@
                         {{ form.coordY}}
                     </div>
                     <div>
+                        <br>
                         <p>Agency:</p>
                         {{ form.agency}}
                     </div>
@@ -153,7 +158,7 @@
         let mapContainer = document.getElementById('mapid')
         if (mapContainer && !mymap) {
 
-            mymap = L.map('mapid').setView([28.0683496, -80.5603303], 14)
+            mymap = L.map('mapid').setView([28.0836, -80.6081], 12)
             marker = L.marker([28.0683496, -80.5603303]).addTo(mymap)
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,

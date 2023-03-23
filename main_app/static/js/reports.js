@@ -31,8 +31,9 @@ fetch(photosurl)
 
 
 
-let mymap = L.map('mapid').setView([28.0683496, -80.5603303], 14)
+let mymap = L.map('mapid').setView([28.0836, -80.6081], 12)
 let marker
+let list = document.querySelectorAll('.card')
 
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -43,9 +44,6 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 function showReports() {
     console.log('photos', photos)
     reports.forEach(report => {
-        if (report.status === 'S') {
-
-        } else {
             let pictureArr = []
             if (photos) {
                 pictureArr = photos.filter(picObj => {
@@ -71,21 +69,15 @@ function showReports() {
                 permanent: true
             }).setContent(report.title)
             marker.bindTooltip(tooltip)
-        }
+        
     })
 }
 
 
-
-
-
-let list = document.querySelectorAll('.card')
-
 function center() {
-    reports.forEach((cat, idx) => {
-        console.log("script is running")
+    reports.forEach((report, idx) => {
         list[idx].addEventListener("mouseover", (event) => {
-            mymap.flyTo([cat.coordX, cat.coordY], 14)
+            mymap.flyTo([report.coordX, report.coordY], 13)
         })
     })
 }
