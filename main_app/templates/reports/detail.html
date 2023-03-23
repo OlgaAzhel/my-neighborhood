@@ -11,15 +11,19 @@
         <p>Description: {{ report.description|linebreaks }}</p>
         <p>Location: {{ report.location }}</p>
         <p>Agency: {{ report.get_agency_display }}</p>
-        <p>Status: {{ report.get_status_display }}</p>
+        {% if report.get_status_display == 'Pending' %}
+        <p style="color: orange">Status: {{ report.get_status_display }}</p>
+        {% else %}
+        <p style="color: rgb(50, 177, 28)">Status: {{ report.get_status_display }}</p>
+        {% endif %}
       </div>
 
       {% if user.is_staff %}
       <div class="card-action">
         <form method="POST" action="{% url 'change_status' report.id %}">
-          {% csrf_token %} 
+          {% csrf_token %}
           {{ status_form.as_p}}
-          <input type="submit" value="Update Status"/>
+          <input type="submit" value="Update Status" />
         </form>
       </div>
       {% endif %}
@@ -37,7 +41,7 @@
     {% empty %}
     <div class="card-panel teal-text center-align">No Photos Uploaded</div>
     {% endfor %}
-  {% if user.is_authenticated %}
+    {% if user.is_authenticated %}
     <form action="{% url 'add_photo' report.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
       {% csrf_token %}
       <input type="file" name="photo-file">
@@ -46,7 +50,7 @@
     </form>
     {% endif %}
   </div>
-{% comment %} map {% endcomment %}
+  {% comment %} map {% endcomment %}
   <div class="col s6">
     <div class="card">
       <div style="visibility: collapse;" id="id_coordX">{{ report.coordX}}</div>
@@ -55,47 +59,125 @@
       <br>
     </div>
 
-{% comment %} comments  {% endcomment %}
-<div class="comments">
-  {{ comment_form.as_p }}
-{% if user.is_authenticated %}
-  <form action="{% url 'add_comment' report.id %}" method="POST">
-    <button type="submit" class="btn right waves-effect waves-light white-text">Add Comment</button>
-    {% csrf_token %}
-  </form>
-  <table class="">
-    <thead>
-      <tr>
-        <th class="comments-header">Comments:</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for comment in report.comment_set.all %}
-      <tr>
-          <td class="comments-date">{{comment.date}}</td> 
-          <td class="comments-date">{{user}}:</td>
-          <td class="comments-comment">{{comment.content}}</td>
-      </tr>
-    {% endfor %}
-    </tbody> 
-  </table>
-</div>
-{% endif %}
-</div> 
+    {% comment %} comments {% endcomment %}
+    <div class="comments">
+      {% if user.is_authenticated %}
+      <form action="{% url 'add_comment' report.id %}" method="POST">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <input type="submit" class="btn right" value="Add Comment">
+      </form>
+      <table class="">
+        <thead>
+          <tr>
+            <th class="comments-header">Comments:</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for comment in report.comment_set.all %}
+          <tr>
+            <td class="comments-date">{{comment.date}}</td>
+            <td class="comments-user">{{report.user.username}}:</td>
+            <td class="comments-comment">{{comment.content}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+  </div>
 
 
-<script>
-  coordX = document.querySelector('#id_coordX').innerHTML
-  coordY = document.querySelector('#id_coordY').innerHTML
-  console.log(coordX, coordY)
-  let detailsmap = L.map('mapid').setView([coordX, coordY], 14)
-  marker = L.marker([coordX, coordY]).addTo(detailsmap)
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  <script>
+    let coordX = document.querySelector('#id_coordX').innerHTML
+    let coordY = document.querySelector('#id_coordY').innerHTML
+    console.log(coordX, coordY)
+    let detailsmap = L.map('mapid').setView([coordX, coordY], 14)
+    marker = L.marker([coordX, coordY]).addTo(detailsmap)
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(detailsmap);
-  const selectEl = document.getElementById('id_status');
-  M.FormSelect.init(selectEl);
-</script>
+    const selectEl = document.getElementById('id_status');
+    M.FormSelect.init(selectEl);
 
-{% endblock %}
+
+    let reportAddress = document.querySelector('#address')
+    let addresses = document.querySelector('#addresses')
+
+    let address = document.querySelector('#id_location')
+
+    function findAddresses() {
+      console.log(reportAddress.value)
+      let url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + reportAddress.value
+      console.log(url)
+      fetch(url)
+        .then(response => response.json())
+        .then(data => addressArr = data)
+        .then(showAddress => showAddresses())
+        .catch(err => console.log(err))
+    }
+
+    function showAddresses() {
+      addresses.innerHTML = ''
+      if (addressArr.length > 0) {
+        addressArr.forEach(address => {
+          addresses.innerHTML = 'Please choose address:<br>'
+          let addressName = address.display_name.replace("'", " ")
+          addresses.innerHTML += "<a href='#' onclick='selectAddress(" +
+            address.lat + "," + address.lon + "," + '"' + addressName + '"' + ")'>"
+            + address.display_name
+            // + "<br> Lat: " + element.lat
+            // + " Lng: " + element.lon
+            + "</a>"
+        })
+      }
+      else {
+        addresses.innerHTML = "<p style='color: red;'>Not found</p>"
+      }
+    }
+
+    function selectAddress(x, y, adr) {
+      address.value = adr
+      coordX.value = x
+      coordY.value = y
+      mymap.flyTo([x, y], 16)
+      marker.closePopup()
+      marker.setLatLng([x, y])
+
+    }
+
+    function selectOnMap(latlng) {
+      coordX.value = latlng.lat
+      coordY.value = latlng.lng
+      mymap.flyTo([latlng.lat, latlng.lng], 16)
+      marker.closePopup()
+      marker.setLatLng([latlng.lat, latlng.lng])
+      fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json`, {
+        // headers: {
+        //     'User-Agent': 'ID of your APP/service/website/etc. v0.1'
+        // }
+      }).then(res => res.json())
+        .then(res => {
+          console.log(res.display_name)
+          address.value = res.display_name
+        })
+    }
+
+
+    let mapContainer = document.getElementById('mapid')
+    if (mapContainer && !detailsmap) {
+
+      detailsmap = L.map('mapid').setView([28.0683496, -80.5603303], 14)
+      marker = L.marker([28.0683496, -80.5603303]).addTo(detailsmap)
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(detailsmap);
+      detailsmap.on('click', function (e) {
+        selectOnMap(e.latlng)
+      });
+    }
+  </script>
+
+  {% endblock %}

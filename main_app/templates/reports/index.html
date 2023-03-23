@@ -18,7 +18,7 @@
     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-    
+
 </head>
 
 <body>
@@ -42,36 +42,32 @@
       </div>
     </nav>
   </header>
-<main class="container" id="reports-container">
-<h1>All Reports</h1>
-<div class="row">
-  <div class="col s4">
-    <ul>
-      
-    </ul>
-      {% for report in reports %}
-      <div class="card">
-        <a href="{% url 'detail' report.id %}">
-        <div class="card-content">
-          <span class="card-title blue-text text-darken-4">{{ report.title }}</span>
-          <p>Date Filed: {{ report.date }}</p>
+  <main class="container" id="reports-container">
+    <h1>All Reports</h1>
+    <div class="row">
+      <div id="report-list" class="col s4">
+        {% for report in reports %}
+        <div class="card">
+          <a href="{% url 'detail' report.id %}">
+            <div class="card-content">
+              <span class="card-title blue-text text-darken-4">{{ report.title }}</span>
+              <p>Date Filed: {{ report.date }}</p>
+              {% if report.get_status_display == 'Solved' %}
+              <p style="color: rgb(50, 177, 28)">Status: {{ report.get_status_display }}</p>
+              {% endif %}
+            </div>
+          </a>
         </div>
-      </a>
+        {% endfor %}
+      </div>
+      <div class="col s8">
+        <div class="map" id="mapid"></div>
+      </div>
     </div>
-    {% endfor %}
-  </div>
-  <div class="col s8">
-    <div class="map" id="mapid"></div>
-  </div>
-</div>
 
-    </main>
-
-    <footer class="page-footer indigo darken-4 white-text">
-      <span class="footer-span">All Rights Reserved, &copy; 2023 My Neighborhood &nbsp;</span>
-    </footer>
-
-      
-    <script type="text/javascript" src="{% static 'js/reports.js' %}"></script>
-  </body>
-
+  </main>
+  <footer class="page-footer indigo darken-4 white-text">
+    <div class="right white-text">All Rights Reserved, &copy; 2023 My Neighborhood &nbsp;</div>
+  </footer>
+  <script type="text/javascript" src="{% static 'js/reports.js' %}"></script>
+</body>

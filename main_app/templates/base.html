@@ -20,7 +20,7 @@
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
     <title>My Neighborhood</title>
-
+    
 
 </head>
 <body>
@@ -29,7 +29,7 @@
         <nav class="navbar-fixed indigo darken-4">
             <div class="nav-wrapper">
                 <ul>
-                    <li><a href="#" class="left brand-logo">&nbsp;&nbsp;My Neighborhood</a></li>
+                    <li><a href="{% url 'home' %}" class="left brand-logo">&nbsp;&nbsp;My Neighborhood</a></li>
                 </ul>
                 <ul class="right">
                     <li><a href="{% url 'home' %}">Home</a></li>
@@ -54,17 +54,18 @@
     <footer class="page-footer indigo darken-4 white-text">
         <span>All Rights Reserved, &copy; 2023 My Neighborhood &nbsp;</span>
     </footer>
+    
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+    crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-        <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"
-        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
-        crossorigin="anonymous">
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script>
-        
-            $(document).ready(function(){
-                $('.carousel').carousel({
+   <script>
+    
+        $(document).ready(function(){
+            $('.carousel').carousel({
+
 
                     fullWidth:true,
                     indicators:true

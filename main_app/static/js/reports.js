@@ -6,16 +6,29 @@ let photos
 let photosurl = '/photosApi'
 
 
+Promise.all([
+    fetch(photosurl),
+    fetch(url)
+]).then(results => {
+    console.log('promise all results', results[0], results[0].json().then(d => console.log('dd', d)))
+})
+
+
 fetch(photosurl)
     .then(response => response.json())
-    .then(data => photos = [...data])
+    .then(data => {
+        photos = [...data]
+        console.log('photos loaded', photos)
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => reports = data)
+            .then(showCat => showReports())
+            .then(centerMap => center())
+
+    })
 
 
-fetch(url)
-    .then(response => response.json())
-    .then(data => reports = data)
-    .then(showCat => showReports())
-    .then(centerMap => center())
 
 
 let mymap = L.map('mapid').setView([28.0683496, -80.5603303], 14)
@@ -28,32 +41,37 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(mymap);
 
 function showReports() {
+    console.log('photos', photos)
     reports.forEach(report => {
-        let pictureArr = []
-        if (photos) {
-            pictureArr = photos.filter(picObj => {
-                return picObj.report === report.id
-            })
-        }
-        let imgUrl = ""
-        let content
-        if (pictureArr.length > 0) {
-            imgUrl = pictureArr[0].url
-            content = '<a href =/reports/' + report.id + '><img src=' + imgUrl + ' style="width: 100px"></a>'
+        if (report.status === 'S') {
+
         } else {
-            content = '<a href=/reports/' + report.id + '>DETAILS HERE--></a>'
+            let pictureArr = []
+            if (photos) {
+                pictureArr = photos.filter(picObj => {
+                    return picObj.report === report.id
+                })
+            }
+            let imgUrl = ""
+            let content
+            if (pictureArr.length > 0) {
+                imgUrl = pictureArr[0].url
+                content = '<a href =/reports/' + report.id + '><img src=' + imgUrl + ' style="width: 100px"></a>'
+            } else {
+                content = '<a href=/reports/' + report.id + '>DETAILS HERE--></a>'
+            }
+
+            let pop = L.popup({
+                closeOnClick: true
+            }).setContent(content)
+            let coords = [report.coordX, report.coordY]
+            let marker = L.marker(coords).addTo(mymap).bindPopup(pop)
+
+            tooltip = L.tooltip({
+                permanent: true
+            }).setContent(report.title)
+            marker.bindTooltip(tooltip)
         }
-
-        let pop = L.popup({
-            closeOnClick: true
-        }).setContent(content)
-        let coords = [report.coordX, report.coordY]
-        let marker = L.marker(coords).addTo(mymap).bindPopup(pop)
-
-        tooltip = L.tooltip({
-            permanent: true
-        }).setContent(report.title)
-        marker.bindTooltip(tooltip)
     })
 }
 
