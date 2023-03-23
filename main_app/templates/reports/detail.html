@@ -1,4 +1,5 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
+{% block content %}
 
 <h1>Report Details</h1>
 
@@ -79,7 +80,7 @@
           {% for comment in report.comment_set.all %}
           <tr>
             <td class="comments-date">{{comment.date}}</td>
-            <td class="comments-user">{{report.user.username}}:</td>
+            <td class="comments-user">{{comment.user}}:</td>
             <td class="comments-comment">{{comment.content}}</td>
           </tr>
           {% endfor %}
