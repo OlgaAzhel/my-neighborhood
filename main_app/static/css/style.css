@@ -41,11 +41,9 @@ h2 {
 }
 
 .map {
-    display: flex;
-    position: relative;
-    top: 200px;
+    position: fixed;
     margin: auto;
-    margin-top: 5px;
+    margin-top: 15px;
     width: 800px;
     min-height: 600px;
 

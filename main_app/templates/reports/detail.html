@@ -17,8 +17,9 @@
       {% if user.is_staff %}
       <div class="card-action">
         <form method="POST" action="{% url 'change_status' report.id %}">
-          {% csrf_token %} {{ status_form.as_p}}
-          <input type="submit" value="Update Status" />
+          {% csrf_token %} 
+          {{ status_form.as_p}}
+          <input type="submit" value="Update Status"/>
         </form>
       </div>
       {% endif %}

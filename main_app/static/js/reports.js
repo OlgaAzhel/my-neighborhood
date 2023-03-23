@@ -2,6 +2,13 @@
 
 let reports
 let url = '/reportsApi'
+let photos
+let photosurl = '/photosApi'
+
+
+fetch(photosurl)
+    .then(response => response.json())
+    .then(data => photos = [...data])
 
 
 fetch(url)
@@ -10,27 +17,10 @@ fetch(url)
     .then(showCat => showReports())
     .then(centerMap => center())
 
-let photos
-let photosurl = '/photosApi'
-
-fetch(photosurl)
-    .then(response => response.json())
-    .then(data => photos = [...data])
-
-
-function findAddresses() {
-    console.log(reportAddress.value)
-    let url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + reportAddress.value
-    console.log(url)
-    fetch(url)
-        .then(response => response.json())
-        .then(data => addressArr = data)
-        .then(showAddress => showAddresses())
-        .catch(err => console.log(err))
-}
 
 let mymap = L.map('mapid').setView([28.0683496, -80.5603303], 14)
 let marker
+
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -49,7 +39,7 @@ function showReports() {
         let content
         if (pictureArr.length > 0) {
             imgUrl = pictureArr[0].url
-            content = '<img src=' + imgUrl + ' style="width: 100px">'
+            content = '<a href =/reports/' + report.id + '><img src=' + imgUrl + ' style="width: 100px"></a>'
         } else {
             content = '<a href=/reports/' + report.id + '>DETAILS HERE--></a>'
         }
@@ -62,10 +52,14 @@ function showReports() {
 
         tooltip = L.tooltip({
             permanent: true
-        }).setContent('<p>' + report.title + '</p>')
+        }).setContent(report.title)
         marker.bindTooltip(tooltip)
     })
 }
+
+
+
+
 
 let list = document.querySelectorAll('.card')
 
