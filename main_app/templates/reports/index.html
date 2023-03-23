@@ -46,9 +46,6 @@
     <h1>All Reports</h1>
     <div class="row">
       <div id="report-list" class="col s4">
-        <ul>
-
-        </ul>
         {% for report in reports %}
         <div class="card">
           <a href="{% url 'detail' report.id %}">
@@ -67,12 +64,6 @@
         <div class="map" id="mapid"></div>
       </div>
     </div>
-    {% endfor %}
-  </div>
-  <div class="col s8">
-    <div class="map" id="mapid"></div>
-  </div>
-</div>
 
   </main>
   <footer class="page-footer indigo darken-4 white-text">
