@@ -28,9 +28,10 @@
         <nav class="navbar-fixed indigo darken-4">
             <div class="nav-wrapper">
                 <ul>
-                    <li><a href="{% url 'home' %}" class="left brand-logo">&nbsp;&nbsp;My Neighborhood</a></li>
+                    <li><a href="#" class="left brand-logo">&nbsp;&nbsp;My Neighborhood</a></li>
                 </ul>
                 <ul class="right">
+                    <li><a href="{% url 'home' %}">Home</a></li>
                     <li><a href="{% url 'index' %}">View All Reports</a></li>
                     {% if user.is_authenticated %}
                     <li><a href="{% url 'report_create' %}">Add a Report</a></li>
@@ -48,31 +49,33 @@
 
         {% endblock %}
     </main>
-    <footer class="page-footer indigo darken-4 white-text">
-        <div class="right white-text">All Rights Reserved, &copy; 2023 My Neighborhood &nbsp;</div>
-    </footer>
-    <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
-    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
-    crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-   <script>
-    
-        $(document).ready(function(){
-            $('.carousel').carousel({
 
-                fullWidth:true,
-                indicators:true
-                
-            }).height(700);
-            
-            setInterval(function(){
-                $('.carousel').carousel('next');
-            }, 2000);
-        });
+    <footer class="page-footer indigo darken-4 white-text">
+        <span>All Rights Reserved, &copy; 2023 My Neighborhood &nbsp;</span>
+    </footer>
+
+        <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+        crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script>
         
-    </script> 
-</body>
+            $(document).ready(function(){
+                $('.carousel').carousel({
+
+                    fullWidth:true,
+                    indicators:true
+                    
+                }).height(700);
+                
+                setInterval(function(){
+                    $('.carousel').carousel('next');
+                }, 2000);
+            });
+            
+        </script> 
+    </body>
 
 </html>
