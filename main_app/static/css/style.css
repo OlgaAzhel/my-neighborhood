@@ -143,7 +143,7 @@ footer {
 }
 
 .carousel {
-    height:700px !important;
+    height: 700px !important;
     min-height: 600px;
 }
 
@@ -158,4 +158,15 @@ footer {
     justify-content: center;
     align-items: center;
     align-content: center;
+} 
+
+#carousel2 {
+    min-height: 0;
+    max-height: 300px;
+}
+
+#carousel2 > .carousel-item >img {
+    object-fit: cover;
+    width: 100%;
+    height: 280px;
 }
