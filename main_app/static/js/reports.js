@@ -27,16 +27,6 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(mymap);
 
-function findAddresses() {
-    console.log(reportAddress.value)
-    let url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + reportAddress.value
-    console.log(url)
-    fetch(url)
-        .then(response => response.json())
-        .then(data => addressArr = data)
-        .then(showAddress => showAddresses())
-        .catch(err => console.log(err))
-}
 function showReports() {
     reports.forEach(report => {
         let pictureArr = []
