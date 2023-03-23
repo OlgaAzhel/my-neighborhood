@@ -17,7 +17,6 @@
         <p style="color: rgb(50, 177, 28)">Status: {{ report.get_status_display }}</p>
         {% endif %}
       </div>
-
       {% if user.is_staff %}
       <div class="card-action">
         <form method="POST" action="{% url 'change_status' report.id %}">
@@ -27,7 +26,6 @@
         </form>
       </div>
       {% endif %}
-
       {% if user.id == report.user.id %}
       <div class="card-action">
         <a href="{% url 'report_update' report.id %}" class="blue-text text-darken-4">Edit</a>
@@ -35,12 +33,16 @@
       </div>
       {% endif %}
     </div>
-
-    {% for photo in report.photo_set.all %}
-    <img class="responsive-img card-panel" src="{{photo.url}}">
-    {% empty %}
+    {% if report.photo_set.all %}
+    <div id="carousel2" class="carousel carousel-slider" data-indicators="true">
+      {% for photo in report.photo_set.all %}
+      <a class="carousel-item" href="#"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
+      {% endfor %}
+    </div>
+    {%else%}
     <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-    {% endfor %}
+    {% endif %}
+
     {% if user.is_authenticated %}
     <form action="{% url 'add_photo' report.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
       {% csrf_token %}
@@ -87,7 +89,7 @@
     {% endif %}
   </div>
 
-
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script>
     let coordX = document.querySelector('#id_coordX').innerHTML
     let coordY = document.querySelector('#id_coordY').innerHTML
@@ -178,6 +180,11 @@
         selectOnMap(e.latlng)
       });
     }
+
+
+
   </script>
+
+
 
   {% endblock %}
