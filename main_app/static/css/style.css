@@ -86,22 +86,53 @@ span {
 
 #report-list::-webkit-scrollbar {
     display: none;
-.footer-span {
-    justify-content: right;
-}
-footer {
-    display: flex;
-    align-items: flex-end;
-    flex-direction: column;
 }
 
-/* .home-page-img { */
-    /* background-image: url("https://davidbalyeat.com/wp-content/uploads/miami-skyline-sunset-panoramic-high-definition-hd-professional-photography.jpg"); */
-    /* background-size: cover;
-    background-position: center;
-    min-height: 600px;
-    margin: 5px; */
-    /* } */
+.home-container {
+    margin-top: 80px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.footer-span {
+    justify-content: right;
+    display: flex;
+    align-items: flex-end;
+    align-content: flex-end;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    height:110px;
+    
+}
+.section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 130px;
+}
+
+.fa-2x, .social {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 2px 2px !important;
+    
+} 
+
+#social {
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}  
+
     
 .card-title {
     font-weight: 500;
@@ -114,4 +145,17 @@ footer {
 .carousel {
     height:700px !important;
     min-height: 600px;
+}
+
+#signup-form {
+    margin: 10px;
+    /* height: 800px; */
+}
+
+#login-form {
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
