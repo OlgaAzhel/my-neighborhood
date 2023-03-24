@@ -183,3 +183,7 @@ footer {
 #id_description {
     min-height: 100px;
 }
+
+#delete-form {
+    margin-bottom: 40%;
+}
