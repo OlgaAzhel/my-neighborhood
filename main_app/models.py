@@ -43,7 +43,7 @@ class Report(models.Model):
         return f'{self.title} ({self.id})'
     
     def get_absolute_url(self):
-        return reverse('index')
+        return reverse('detail', kwargs={'report_id': self.id})
     
     class Meta:
         ordering = ['-date']
@@ -57,6 +57,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.content} ({self.id})'
+
+    class Meta:
+        ordering = ['-date']
 
 
 class Photo(models.Model):
