@@ -20,7 +20,8 @@ h2 {
     justify-content: center;
     align-items: center;
     text-align: center;
-    /* font-family: 'Style Script', cursive; */
+    margin-top: 4vmin;
+    margin-bottom: 4vmin;
 
 }
 
@@ -98,7 +99,6 @@ span {
 }
 
 .home-container {
-    margin-top: 80px;
     justify-content: center;
     align-items: center;
     align-content: center;
@@ -152,8 +152,8 @@ footer {
 }
 
 .carousel {
-    height: 700px !important;
-    min-height: 600px;
+    height: 500px !important;
+    min-height: 500px;
 }
 
 #signup-form {
@@ -164,6 +164,7 @@ footer {
 #login-form {
     display: flex;
     margin: 10px;
+    margin-bottom: 30%;
     justify-content: center;
     align-items: center;
     align-content: center;
@@ -186,4 +187,11 @@ footer {
 
 #delete-form {
     margin-bottom: 40%;
+}
+
+#carousel-div {
+    margin: 0 auto;
+    margin-bottom: 5vmin;
+    width: 75%;
+    padding: 4vmin;
 }
